@@ -30,5 +30,18 @@ rm /$HOME/rivera-output/$url/recon/f.txt
 rm /$HOME/rivera-output/$url/recon/final.txt
 
 echo "[+] Finding the Alive Domains"
-cat /$HOME/rivera-output/$url/recon/domain.txt | httprobe -s -p https:443 | sed 's/https\?:\/\///' | tr -d ':443' >> /$HOME/rivera-output/$url/recon/alive.txt
+
+#cat /$HOME/rivera-output/$url/recon/domain.txt | httprobe -s -p https:443 | sed 's/https\?:\/\///' | tr -d ':443' >> /$HOME/rivera-output/$url/recon/alive.txt
+cat /$HOME/rivera-output/$url/recon/domain.txt | httprobe  >> /$HOME/rivera-output/$url/recon/alive.txt
+
+echo "*********************Important********************"
+echo ""
 echo "Please Find All the Files Necessary in /$HOME/rivera-output/$url/" 
+echo ""
+echo "*********************Important********************"
+
+
+#echo "Starting the NMAP Scanning Stage"
+
+#echo "\n1. Scan the List of all the subdomains Found\n2. Scan the alive Hosts"
+
