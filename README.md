@@ -3,3 +3,6 @@ Make Sure you have installed the following:
 1. GO
 2. Asset Finder
 3. Amass
+
+Usage:
+rivera <DomainName>
