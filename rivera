@@ -1,0 +1,34 @@
+#!/bin/bash
+
+mkdir -p /$HOME/rivera-output/
+
+url=$1
+
+if [ $# -eq 0 ];then
+	echo "USAGE rivera <Domain>"
+	exit 1
+fi 
+
+if [ ! -d "/$HOME/rivera-output/$url" ];then
+	mkdir -p /$HOME/rivera-output/$url
+fi
+
+if [ ! -d "/$HOME/rivera-output/$url/recon" ];then
+	mkdir -p /$HOME/rivera-output/$url/recon
+fi
+
+echo "[+] Domain Finding Using Asset Finder"
+assetfinder $url >>   /$HOME/rivera-output/$url/recon/asset.txt
+cat /$HOME/rivera-output/$url/recon/asset.txt | grep $1 >> /$HOME/rivera-output/$url/recon/final.txt 
+rm /$HOME/rivera-output/$url/recon/asset.txt
+
+echo "[+] Domain Finder Using Amass"
+amass enum -d $url >> /$HOME/rivera-output/$url/recon/f.txt
+cat /$HOME/rivera-output/$url/recon/f.txt >> /$HOME/rivera-output/$url/recon/final.txt
+cat /$HOME/rivera-output/$url/recon/final.txt | sort -u >> /$HOME/rivera-output/$url/recon/domain.txt
+rm /$HOME/rivera-output/$url/recon/f.txt
+rm /$HOME/rivera-output/$url/recon/final.txt
+
+echo "[+] Finding the Alive Domains"
+cat /$HOME/rivera-output/$url/recon/domain.txt | httprobe -s -p https:443 | sed 's/https\?:\/\///' | tr -d ':443' >> /$HOME/rivera-output/$url/recon/alive.txt
+echo "Please Find All the Files Necessary in /$HOME/rivera-output/$url/" 
