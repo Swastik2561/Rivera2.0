@@ -179,9 +179,9 @@
     echo  "[+] Nmap Port Scan Starting Phase"
     
     if [ ! -d ~/$url/Scan ];then
-            mkdir ~/url/Scan
+            mkdir ~/$url/Scan
     fi
-    nmap -sC -sV -vv -T4 -iL ~/url/recon/final.txt -oA ~/$url/recon/Scan/Scan_$url
+    nmap -sC -sV -vv -T4 -iL ~/$url/recon/final.txt -oA ~/$url/recon/Scan/Scan_$url
     
 
     echo "[+] Nmap Port Scanning Stoping"
